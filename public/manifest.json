@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "2D Grid",
+  "name": "2D Grid Task (Decard system)",
   "icons": [
     {
       "src": "favicon.ico",
