@@ -18,7 +18,9 @@
     cursor: pointer;
 
     &.selected {
-      background-color: #ddf;
+      background-color: #ccf;
+      border-radius: 5px;
+      transition: border-radius 0.5s;
     }
   }
 }
