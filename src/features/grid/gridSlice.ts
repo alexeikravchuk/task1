@@ -59,6 +59,11 @@ export const counterSlice = createSlice({
     setSelectedObjectId(state, action: PayloadAction<number>) {
       state.selected = action.payload;
     },
+    setCoordinates(state, action: PayloadAction<{ posX: number; posY: number }>) {
+      const selectedIndex = state.objects.findIndex((item: IObject) => item.id === state.selected);
+      const currentObject = state.objects[selectedIndex];
+      state.objects[selectedIndex] = { ...currentObject, ...action.payload };
+    },
     changeCoordinate(state, action: PayloadAction<{ value: number; coordinateName: string }>) {
       const selectedIndex = state.objects.findIndex((item: IObject) => item.id === state.selected);
       const currentObject = state.objects[selectedIndex];
@@ -70,12 +75,16 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { addObjectByXY, setSelectedObjectId, changeCoordinate } = counterSlice.actions;
+export const {
+  addObjectByXY,
+  setSelectedObjectId,
+  changeCoordinate,
+  setCoordinates,
+} = counterSlice.actions;
 
 export const setObjectsByXY = (x: number, y: number, ...args: any[]): AppThunk => (dispatch) => {
   setTimeout(() => {
     args.forEach((item: {}) => {
-      console.log(item);
       if (item.hasOwnProperty('name')) {
         dispatch(
           addObjectByXY({

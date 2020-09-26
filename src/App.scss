@@ -1,0 +1,13 @@
+.App.ant-layout {
+  min-height: 100vh;
+  .ant-layout-header {
+    background-color: #fefeff;
+    height: 100%;
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+}

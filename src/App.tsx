@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, PageHeader } from 'antd';
-import './App.css';
+import './App.scss';
 import 'antd/dist/antd.css'
 import { Control, Grid } from './features';
 
