@@ -14,7 +14,7 @@ interface IObjectState {
   objects: IObject[];
 }
 
-const defaultObject = {
+export const defaultObject = {
   id: 0,
   posX: 0,
   posY: 0,
@@ -65,7 +65,7 @@ const initialState: IObjectState = {
       posX: 15,
       posY: 0,
       name: 'dot6',
-      color: 'yellow',
+      color: '#de2',
     },
   ],
 };

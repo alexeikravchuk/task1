@@ -5,6 +5,9 @@
   flex-basis: 320px;
   max-width: 550px;
   padding: 10px 0 10px 30px;
+  @media screen and (max-width: 984px) {
+    padding: 10px;
+  }
 }
 
 .item-list {
@@ -14,11 +17,19 @@
   &--item {
     margin: 5px;
     padding: 0 5px;
-    background-color: #eef;
+    background-color: #faf4ff;
     list-style: none;
     border-radius: 2px;
     cursor: pointer;
-
+    &_dot {
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+    }
+    &_name {
+      margin-left: 10px;
+    }
     &.selected {
       background-color: #ccf;
       border-radius: 5px;
@@ -42,8 +53,20 @@
     margin-bottom: 1px;
     font-weight: 600;
   }
+  .ant-input {
+    display: inline-block;
+    width: 80px;
+    &-group {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .input-label {
+    margin-left: 20px;
+  }
   &--input {
-    width: 100px;
+    display: inline-block;
+    width: 50px;
     margin: 0 3px;
   }
   .ant-row.ant-form-item {
