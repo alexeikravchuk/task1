@@ -2,7 +2,8 @@ import React from 'react';
 import { Layout, PageHeader } from 'antd';
 import './App.scss';
 import 'antd/dist/antd.css'
-import { Control, Grid } from './features';
+import { Grid } from './features';
+import { Control } from './components';
 
 const { Header, Footer, Content } = Layout;
 
@@ -22,8 +23,7 @@ const App: React.FC = () => (
     <Header>
       <PageHeader
         className="site-page-header"
-        title="2D сетка с координатами объектов по x, y. "
-        subTitle=" (Декартовая система)"
+        title="2D сетка с координатами объектов по x, y. (Декартовая система)"
       />
     </Header>
     <Content className="content">

@@ -5,6 +5,7 @@ const STEP = 10;
 export const drawGrid = (context: CanvasRenderingContext2D) => {
   const { width, height } = context.canvas.getBoundingClientRect();
   if (context) {
+    context.beginPath();
     for (var x = -0.1; x < width; x += STEP) {
       context.moveTo(x, 0);
       context.lineTo(x, width);
@@ -65,7 +66,6 @@ export const drawPoints = (
         context.arc(posX, posY, STEP / 2, 0, Math.PI * 2, false);
         context.fillStyle = item.color;
         context.fill();
-        context.lineWidth = 1;
         context.fillStyle = '#000';
         context.fillText(`${item.id}`, posX + STEP / 2, posY - STEP / 2);
         context.closePath();

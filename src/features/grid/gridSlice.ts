@@ -46,6 +46,27 @@ const initialState: IObjectState = {
       name: 'dot3',
       color: 'green',
     },
+    {
+      id: 4,
+      posX: -10,
+      posY: 5,
+      name: 'dot3',
+      color: 'magenta',
+    },
+    {
+      id: 5,
+      posX: 20,
+      posY: 20,
+      name: 'dot3',
+      color: 'brown',
+    },
+    {
+      id: 6,
+      posX: 15,
+      posY: 0,
+      name: 'dot3',
+      color: 'yellow',
+    },
   ],
 };
 

@@ -17,7 +17,7 @@ export function Grid() {
   }
 
   return (
-    <div>
+    <div className="grid-container">
       <Canvas draw={draw} canvasSize={canvasSize} />
     </div>
   );

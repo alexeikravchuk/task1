@@ -3,14 +3,28 @@
   .ant-layout-header {
     background-color: #f0f2f5;
     height: 100%;
+    .ant-page-header {
+      padding: 10px 0;
+      text-align: center;
+    }
+    @media screen and (max-width: 700px) {
+      padding: 0 10px;
+    }
   }
 }
 
 .content {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   padding: 10px 20px;
   background-color: #fefefe;
+  .grid-container {
+    overflow-x: auto;
+  }
+  @media screen and (max-width: 650px) {
+    padding: 5px;
+  }
 }
 
 .footer-container {
@@ -33,6 +47,9 @@
     &.github {
       position: relative;
       padding-left: 30px;
+      &:nth-child(2) {
+        margin-left: 20px;
+      }
       &::after {
         content: '';
         position: absolute;
