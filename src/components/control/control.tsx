@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Input, List, Modal, Button, Radio, Divider, Form } from 'antd';
+import { Input, List, Modal, Button, Radio, Divider, Form, Popconfirm, message } from 'antd';
+import { DeleteTwoTone } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectedItemId, selectObjects, setSelectedObjectId, IObject, changeCoordinate, setObjectsByXY, setCoordinates } from '../../features/grid/gridSlice';
+import { selectedItemId, selectObjects, setSelectedObjectId, IObject, changeCoordinate, setObjectsByXY, setCoordinates, deleteObject } from '../../features/grid/gridSlice';
 import './control.scss';
 import { calculateNewCoordinatesByDistance, calculateNewCoordinatesByReference } from './helpers';
 
@@ -18,10 +19,16 @@ export function Control() {
   }
 
   const onPositionChange = (value: number, coordinateName: string) => {
+    if (!selectedItem) {
+      showMessage(false, 'Выберите объект из списка');
+    }
     dispatch(changeCoordinate({ value, coordinateName }))
   }
 
   const moveObjectByDistance = (values: { distance: string; direction: string }) => {
+    if (!selectedItem) {
+      showMessage(false, 'Выберите объект из списка');
+    }
     const { distance, direction } = values;
     const currentObject = objects.find((item: IObject) => item.id === selectedItem);
     let startDistance = 0;
@@ -43,6 +50,9 @@ export function Control() {
   }
 
   const moveObjectAraund = (values: { pointX: string; pointY: string; angle: string }) => {
+    if (!selectedItem) {
+      showMessage(false, 'Выберите объект из списка');
+    }
     const { pointX, pointY, angle } = values;
     const currentObject = objects.find((item: IObject) => item.id === selectedItem);
     let startAngle = 0;
@@ -68,12 +78,17 @@ export function Control() {
     const { posX, posY } = newObjectCoordinates;
     const newId = objects[objects.length - 1].id + 1;
     dispatch(setObjectsByXY(posX, posY, { id: newId, name: `dot${newId}`, color }));
+    showMessage(true, 'Объект успешно создан');
     setVisibleModal(false);
   };
 
   const handleCancel = () => {
     setVisibleModal(false);
   };
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteObject({ id }));
+  }
 
   return (
     <>
@@ -91,6 +106,13 @@ export function Control() {
               <List.Item.Meta
                 description={` Position: X = ${item.posX.toFixed(2)}, Y = ${item.posY.toFixed(2)}`}
               />
+              <div onClick={(e) => e.stopPropagation()}>
+                <Popconfirm title="Sure to delete?"
+                  onConfirm={() => handleDelete(item.id)}>
+                  <DeleteTwoTone />
+                </Popconfirm>
+              </div>
+
             </List.Item>
           )}
         />
@@ -135,7 +157,7 @@ export function Control() {
                 min={-30}
               />
             </Form.Item>
-            <Form.Item name="angle" label="угол: ">
+            <Form.Item name="angle" label="угол, °: ">
               <Input
                 type='number'
                 max={3600}
@@ -163,7 +185,7 @@ export function Control() {
                 min={-90}
               />
             </Form.Item>
-            <Form.Item name="direction" label="направление: ">
+            <Form.Item name="direction" label="угол, °: ">
               <Input
                 type='number'
                 max={3600}
@@ -227,4 +249,8 @@ export function Control() {
 
     </>
   );
+}
+
+function showMessage(isSuccess: boolean, text: string): void {
+  isSuccess ? message.success(text) : message.error(text);
 }

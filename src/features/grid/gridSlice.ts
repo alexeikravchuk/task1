@@ -50,21 +50,21 @@ const initialState: IObjectState = {
       id: 4,
       posX: -10,
       posY: 5,
-      name: 'dot3',
+      name: 'dot4',
       color: 'magenta',
     },
     {
       id: 5,
       posX: 20,
       posY: 20,
-      name: 'dot3',
+      name: 'dot5',
       color: 'brown',
     },
     {
       id: 6,
       posX: 15,
       posY: 0,
-      name: 'dot3',
+      name: 'dot6',
       color: 'yellow',
     },
   ],
@@ -93,6 +93,12 @@ export const counterSlice = createSlice({
         [action.payload.coordinateName]: action.payload.value,
       };
     },
+    deleteObject(state, action: PayloadAction<{ id: number }>) {
+      state.objects = state.objects.filter((item) => item.id !== action.payload.id);
+      if (state.selected === action.payload.id) {
+        state.selected = 0;
+      }
+    },
   },
 });
 
@@ -101,6 +107,7 @@ export const {
   setSelectedObjectId,
   changeCoordinate,
   setCoordinates,
+  deleteObject,
 } = counterSlice.actions;
 
 export const setObjectsByXY = (x: number, y: number, ...args: any[]): AppThunk => (dispatch) => {
