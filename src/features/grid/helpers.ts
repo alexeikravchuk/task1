@@ -57,6 +57,13 @@ export const drawAxis = (context: CanvasRenderingContext2D) => {
     context.fillStyle = GRID_FONT_COLOR;
     context.font = GRID_FONT;
     context.fillText('0', width / 2 - GRID_STEP * 1.5, height / 2 + GRID_STEP * 1.5);
+    context.fillText('x', width - GRID_STEP * 2, height / 2 + GRID_STEP * 2.5);
+    context.fillText('y', width / 2 - GRID_STEP * 2, GRID_STEP * 2);
+
+    context.fillText('0°', width - GRID_STEP * 2, height / 2 - GRID_STEP * 2);
+    context.fillText('90°', width / 2 + GRID_STEP * 2, GRID_STEP * 2);
+    context.fillText('180°', GRID_STEP, height / 2 - GRID_STEP * 1.5); 
+    context.fillText('270°', width / 2 + GRID_STEP, height - GRID_STEP); 
   }
 };
 
