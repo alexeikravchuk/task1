@@ -4,26 +4,16 @@ import './App.scss';
 import 'antd/dist/antd.css'
 import { Grid } from './features';
 import { Control } from './components';
+import { TITLE, FOOTER_LINKS } from './constants';
 
 const { Header, Footer, Content } = Layout;
-
-const FOOTER_LINKS = {
-  code: {
-    link: 'https://github.com/alexeikravchuk/task1',
-    title: 'Исходный код',
-  },
-  projects: {
-    link: 'https://alexeikravchuk.github.io/rsschool-cv/#projects',
-    title: 'Выполненные работы',
-  },
-};
 
 const App: React.FC = () => (
   <Layout className="App">
     <Header>
       <PageHeader
         className="site-page-header"
-        title="2D сетка с координатами объектов по x, y. (Декартовая система)"
+        title={TITLE}
       />
     </Header>
     <Content className="content">

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectedItemId, selectObjects, setSelectedObjectId, IObject, changeCoordinate, setObjectsByXY, setCoordinates, deleteObject } from '../../features/grid/gridSlice';
 import './control.scss';
 import { calculateNewCoordinatesByDistance, calculateNewCoordinatesByReference } from './helpers';
+import { ADD_OBJECT, ANGLE, CANCEL, COLORS, DISTANCE, MOVE, MOVE_DISTANCE, OBJECT_CREATED_MSG, POSITION, SAVE, SELECT_OBJECT_MSG, SURE_DELETE_MSG } from '../../constants';
 
 export function Control() {
   const objects = useSelector(selectObjects);
@@ -20,14 +21,16 @@ export function Control() {
 
   const onPositionChange = (value: number, coordinateName: string) => {
     if (!selectedItem) {
-      showMessage(false, 'Выберите объект из списка');
+      showMessage(false, SELECT_OBJECT_MSG);
+      return;
     }
     dispatch(changeCoordinate({ value, coordinateName }))
   }
 
   const moveObjectByDistance = (values: { distance: string; direction: string }) => {
     if (!selectedItem) {
-      showMessage(false, 'Выберите объект из списка');
+      showMessage(false, SELECT_OBJECT_MSG);
+      return;
     }
     const { distance, direction } = values;
     const currentObject = objects.find((item: IObject) => item.id === selectedItem);
@@ -51,7 +54,8 @@ export function Control() {
 
   const moveObjectAraund = (values: { pointX: string; pointY: string; angle: string }) => {
     if (!selectedItem) {
-      showMessage(false, 'Выберите объект из списка');
+      showMessage(false, SELECT_OBJECT_MSG);
+      return;
     }
     const { pointX, pointY, angle } = values;
     const currentObject = objects.find((item: IObject) => item.id === selectedItem);
@@ -78,7 +82,7 @@ export function Control() {
     const { posX, posY } = newObjectCoordinates;
     const newId = objects[objects.length - 1].id + 1;
     dispatch(setObjectsByXY(posX, posY, { id: newId, name: `dot${newId}`, color }));
-    showMessage(true, 'Объект успешно создан');
+    showMessage(true, OBJECT_CREATED_MSG);
     setVisibleModal(false);
   };
 
@@ -104,10 +108,10 @@ export function Control() {
               <div style={{ display: 'inline-block', backgroundColor: `${item.color}`, height: '10px', width: '10px', borderRadius: '50%' }} />
               <span style={{ color: `${item.color}`, marginLeft: '10px' }}>{item.name}</span>
               <List.Item.Meta
-                description={` Position: X = ${item.posX.toFixed(2)}, Y = ${item.posY.toFixed(2)}`}
+                description={`${POSITION}: X = ${item.posX.toFixed(2)}, Y = ${item.posY.toFixed(2)}`}
               />
               <div onClick={(e) => e.stopPropagation()}>
-                <Popconfirm title="Sure to delete?"
+                <Popconfirm title={SURE_DELETE_MSG}
                   onConfirm={() => handleDelete(item.id)}>
                   <DeleteTwoTone />
                 </Popconfirm>
@@ -166,26 +170,26 @@ export function Control() {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                Переместить
+                {MOVE}
               </Button>
             </Form.Item>
           </Form>
 
           <Divider style={{ margin: '10px 0' }} />
-          <p className="control-inputs--title">Переместить объект на расстояние:</p>
+          <p className="control-inputs--title">{`${MOVE_DISTANCE}:`}</p>
           <Form
             layout="inline"
             onFinish={moveObjectByDistance}
             initialValues={{ distance: "0", direction: "0" }}
           >
-            <Form.Item name="distance" label="расстояние: ">
+            <Form.Item name="distance" label={`${DISTANCE}: `}>
               <Input
                 type='number'
                 max={90}
                 min={-90}
               />
             </Form.Item>
-            <Form.Item name="direction" label="угол, °: ">
+            <Form.Item name="direction" label={`${ANGLE}, °: `}>
               <Input
                 type='number'
                 max={3600}
@@ -194,34 +198,28 @@ export function Control() {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" style={{ width: "100%", maxWidth: "300px" }}>
-                Переместить
+                {MOVE}
               </Button>
             </Form.Item>
           </Form>
         </div>
         <Divider style={{ margin: '10px 0' }} />
         <Button type="primary" style={{ marginLeft: '10px' }} onClick={() => setVisibleModal(true)}>
-          Добавить объект
+          {ADD_OBJECT}
         </Button>
         <Modal
           className="modal"
-          title="Добавить объект"
+          title={ADD_OBJECT}
           visible={isVivibleModal}
           onOk={handleOk}
           onCancel={handleCancel}
-          okText="Сохранить"
-          cancelText="Отмена"
+          okText={SAVE}
+          cancelText={CANCEL}
         >
           <Radio.Group value={color} onChange={({ target: { value } }) => setColor(value)}>
-            <Radio.Button value="black" style={{ color: "black" }}>Черный</Radio.Button>
-            <Radio.Button value="yellow" style={{ color: "#de4" }}>Желтый</Radio.Button>
-            <Radio.Button value="red" style={{ color: "red" }}>Красный</Radio.Button>
-            <Radio.Button value="blue" style={{ color: "blue" }}>Синий</Radio.Button>
-            <Radio.Button value="magenta" style={{ color: "magenta" }}>Розовый</Radio.Button>
-            <Radio.Button value="green" style={{ color: "green" }}>Зеленый</Radio.Button>
-            <Radio.Button value="gray" style={{ color: "gray" }}>Серый</Radio.Button>
-            <Radio.Button value="brown" style={{ color: "brown" }}>Коричневый</Radio.Button>
-            <Radio.Button value="violet" style={{ color: "violet" }}>Фиолетовый</Radio.Button>
+            {Object.keys(COLORS).map((color) => (
+              <Radio.Button key={color} value={color} style={{ color }}>{COLORS[color]}</Radio.Button>
+            ))}
           </Radio.Group>
           <Divider />
           <p className="control-inputs--title">Координаты объекта</p>
