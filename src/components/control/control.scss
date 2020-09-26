@@ -1,11 +1,12 @@
-.item-list {
-  flex-basis: 20%;
-  flex-grow: 2;
+.control-block {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.item-list {
   overflow-y: auto;
   max-height: 320px;
-  
+
   &--item {
     margin: 5px;
     padding: 0 5px;
@@ -21,3 +22,10 @@
   }
 }
 
+.control-inputs {
+  padding-left: 40px;
+  margin-bottom: 10px;
+  &--title {
+    margin-bottom: 1px;
+  }
+}

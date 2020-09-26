@@ -16,6 +16,7 @@ export const drawGrid = (context: CanvasRenderingContext2D) => {
     }
 
     context.strokeStyle = '#aaa';
+    context.lineWidth = 1;
     context.stroke();
     context.closePath();
   }
@@ -46,22 +47,38 @@ export const drawAxis = (context: CanvasRenderingContext2D) => {
   }
 };
 
-export const drawPoints = (context: CanvasRenderingContext2D, objects: IObject[]) => {
+export const drawPoints = (
+  context: CanvasRenderingContext2D,
+  objects: IObject[],
+  selectedItem: number
+) => {
   const { width, height } = context.canvas.getBoundingClientRect();
   const zeroX = width / 2;
   const zeroY = height / 2;
   if (context) {
     objects.forEach((item) => {
-      console.log(item);
       context.beginPath();
       const posX = zeroX + item.posX * 10;
       const posY = zeroY - item.posY * 10;
-      context.arc(posX, posY, STEP / 2, 0, Math.PI * 2, false);
-      context.closePath();
-      context.fillStyle = item.color;
-      context.fill();
-      context.fillStyle = '#000';
-      context.fillText(`${item.id}`, posX + STEP / 2, posY - STEP / 2);
+      if (item.id === selectedItem) {
+        context.arc(posX, posY, STEP / 1.5, 0, Math.PI * 2, false);
+        context.fillStyle = item.color;
+        context.strokeStyle = '#779';
+        context.fill();
+        context.lineWidth = 3;
+        context.stroke();
+        context.fillStyle = '#000';
+        context.fillText(`${item.id}`, posX + STEP / 2, posY - STEP / 2);
+        context.closePath();
+      } else {
+        context.lineWidth = 1;
+        context.arc(posX, posY, STEP / 2, 0, Math.PI * 2, false);
+        context.fillStyle = item.color;
+        context.fill();
+        context.fillStyle = '#000';
+        context.fillText(`${item.id}`, posX + STEP / 2, posY - STEP / 2);
+        context.closePath();
+      }
     });
   }
   context.closePath();

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, PageHeader } from 'antd';
 import './App.css';
+import 'antd/dist/antd.css'
 import { Control, Grid } from './features';
 
 const { Header, Footer, Content } = Layout;

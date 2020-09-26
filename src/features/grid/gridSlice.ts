@@ -1,4 +1,3 @@
-/* eslint-disable no-empty-pattern */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../../app/store';
 
@@ -60,10 +59,18 @@ export const counterSlice = createSlice({
     setSelectedObjectId(state, action: PayloadAction<number>) {
       state.selected = action.payload;
     },
+    changeCoordinate(state, action: PayloadAction<{ value: number; coordinateName: string }>) {
+      const selectedIndex = state.objects.findIndex((item: IObject) => item.id === state.selected);
+      const currentObject = state.objects[selectedIndex];
+      state.objects[selectedIndex] = {
+        ...currentObject,
+        [action.payload.coordinateName]: action.payload.value,
+      };
+    },
   },
 });
 
-export const { addObjectByXY, setSelectedObjectId } = counterSlice.actions;
+export const { addObjectByXY, setSelectedObjectId, changeCoordinate } = counterSlice.actions;
 
 export const setObjectsByXY = (x: number, y: number, ...args: any[]): AppThunk => (dispatch) => {
   setTimeout(() => {
