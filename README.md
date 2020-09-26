@@ -24,7 +24,7 @@
  - перемещение объекта на заданную дистанцию по заданному углу декартовой системы координат (анимация);
  - графическое представление сетки координат и объектов.
  
- 
+ ![Графическое представление](https://raw.githubusercontent.com/alexeikravchuk/task1/master/screen-decription.PNG)
 
 -----
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
