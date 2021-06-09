@@ -12,7 +12,7 @@
 
 ---
 
-### Используемые технологии: React, Redux, TypeScript, Canvas, AndDesigh
+### Используемые технологии: React, Redux, TypeScript, Canvas, AntDesigh
 
 ---
 
